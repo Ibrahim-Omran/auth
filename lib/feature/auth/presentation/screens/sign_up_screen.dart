@@ -1,4 +1,5 @@
 import 'package:dyslexia_app/core/utils/app_colors.dart';
+import 'package:dyslexia_app/core/utils/commons.dart';
 import 'package:dyslexia_app/core/widget/custom_button.dart';
 import 'package:dyslexia_app/core/widget/custom_google_button.dart';
 import 'package:dyslexia_app/feature/auth/presentation/components/text_form_field_component.dart';
@@ -21,7 +22,21 @@ class SignUpScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(24.0),
                 child: BlocConsumer<SignUpCubit, SignUpState>(
-                  listener: (context, state) {},
+                  listener: (context, state) {
+                    if (state is SignUpSuccessState) {
+                      showToast(
+                        message: 'SignUp Successfully',
+                        state: ToastState.success,
+                      );
+                      Navigator.pop(context);
+                    }
+                    if (state is SignUpErrorState) {
+                      showToast(
+                        message: state.errorMS,
+                        state: ToastState.error,
+                      );
+                    }
+                  },
                   builder: (context, state) {
                     final cubit = BlocProvider.of<SignUpCubit>(context);
                     return Form(
@@ -51,50 +66,39 @@ class SignUpScreen extends StatelessWidget {
                               ),
                             ],
                           ),
-
-
                           SizedBox(
                             height: 49.h,
                           ),
-
-
                           TextFormFieldComponent(
                             controller: cubit.nameController,
                             email: 'Name',
                             hintText: 'Name',
                             prefixIcon:
                                 const Icon(Icons.drive_file_rename_outline),
-                            validator:  (data) {
+                            validator: (data) {
                               if (data!.isEmpty) {
                                 return "Please Enter Your Name";
                               }
                               return null;
                             },
-
                           ),
-
-
                           SizedBox(
                             height: 12.h,
                           ),
-
-
                           TextFormFieldComponent(
-                            controller:  cubit.phoneNumberController,
+                            controller: cubit.phoneNumberController,
                             email: 'Phone Number',
                             hintText: 'Phone Number',
                             keyboardType: TextInputType.phone,
                             prefixIcon:
                                 const Icon(Icons.phone_android_outlined),
-                            validator:  (data) {
+                            validator: (data) {
                               if (data!.isEmpty) {
                                 return "Please Enter Your Phone Number";
                               }
                               return null;
                             },
                           ),
-
-
                           SizedBox(
                             height: 12.h,
                           ),
@@ -102,9 +106,7 @@ class SignUpScreen extends StatelessWidget {
                             controller: cubit.emailController,
                             email: 'Email',
                             hintText: 'Email',
-                            prefixIcon: const Icon(
-                                Icons.email_outlined
-                            ),
+                            prefixIcon: const Icon(Icons.email_outlined),
                             validator: (data) {
                               if (data!.isEmpty ||
                                   !data.contains('@gmail.com')) {
@@ -113,18 +115,14 @@ class SignUpScreen extends StatelessWidget {
                               return null;
                             },
                           ),
-
                           SizedBox(
                             height: 12.h,
                           ),
-
                           TextFormFieldComponent(
-                            controller:  cubit.passwordController,
+                            controller: cubit.passwordController,
                             email: 'Password',
                             hintText: 'Password',
-                            prefixIcon: const Icon(
-                                Icons.lock_outline_rounded
-                            ),
+                            prefixIcon: const Icon(Icons.lock_outline_rounded),
                             obscureText: cubit.isLoginPasswordSowing,
                             iconSuffix: cubit.suffixIcon,
                             suffixIconOnPressed: () {
@@ -137,41 +135,35 @@ class SignUpScreen extends StatelessWidget {
                               return null;
                             },
                           ),
-
-
                           SizedBox(
                             height: 4.h,
                           ),
-
                           SizedBox(
                             height: 72.h,
                           ),
+                          state is SignUpLoadingState
+                              ? const Center(child: CircularProgressIndicator())
+                              : CustomButton(
+                                  onPressed: () {
+                                    if (cubit.signUpKey.currentState!
+                                        .validate()) {
+                                      // SignUp Function
 
-                          CustomButton(
-                            onPressed: () {
-                              if (cubit.signUpKey.currentState!
-                                  .validate()) {
-                                // SignUp Function
-
-                              }
-                            },
-                            text: 'Sign Up',
-                          ),
-
-
+                                      cubit.signUp();
+                                    }
+                                  },
+                                  text: 'Sign Up',
+                                ),
                           SizedBox(
                             height: 28.h,
                           ),
-
                           CustomGoogleButton(
                             onPressed: () {},
                             text: 'Sign Up With Google',
                           ),
-
                           SizedBox(
                             height: 28.h,
                           ),
-
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [

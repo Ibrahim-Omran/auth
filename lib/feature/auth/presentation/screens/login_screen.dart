@@ -27,6 +27,22 @@ class LoginScreen extends StatelessWidget {
                 child: BlocConsumer<LoginCubit, LoginState>(
                   listener: (context, state) {
 
+                    if (state is LoginSuccessState) {
+                      showToast(
+                        message: 'Login Successfully',
+                        state: ToastState.success,
+                      );
+                      // navigateReplacement(
+                      //   context: context,
+                      //   route: Routes.home,
+                      // );
+                    }
+                    if (state is LoginErrorState) {
+                      showToast(
+                        message: state.message,
+                        state: ToastState.error,
+                      );
+                    }
                   },
                   builder: (context, state) {
                     final cubit = BlocProvider.of<LoginCubit>(context);
@@ -97,7 +113,7 @@ class LoginScreen extends StatelessWidget {
                               cubit.changeLoginPasswordSuffixIcon();
                             },
                             validator: (data) {
-                              if (data!.length < 6 || data.isEmpty) {
+                              if (data!.length < 3 || data.isEmpty) {
                                 return ' Please Enter Valid Password Length < 6';
                               }
                               return null;
@@ -135,12 +151,15 @@ class LoginScreen extends StatelessWidget {
                             height: 102.h,
                           ),
 
-                          CustomButton(
+                          state is LoginLoadingState
+                              ? const Center(child: CircularProgressIndicator())
+                              :CustomButton(
                               onPressed: (){
                                 if (cubit.loginKey.currentState!
                                     .validate()) {
                                  // Login Function
 
+                                  cubit.login();
                                 }
                               },
                               text: 'Login',

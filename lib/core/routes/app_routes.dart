@@ -5,6 +5,8 @@ import 'package:dyslexia_app/feature/auth/presentation/screens/on_boarding_scree
 import 'package:dyslexia_app/feature/auth/presentation/screens/reset_password_screen.dart';
 import 'package:dyslexia_app/feature/auth/presentation/screens/send_code_screen.dart';
 import 'package:dyslexia_app/feature/auth/presentation/screens/sign_up_screen.dart';
+import 'package:dyslexia_app/feature/auth/presentation/screens/splash_screen.dart';
+import 'package:dyslexia_app/feature/home/presentation/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
 
@@ -25,12 +27,15 @@ class AppRoutes {
   static Route? generateRoute(RouteSettings routeSettings) {
     switch (routeSettings.name) {
       case Routes.intitlRoute:
+        return MaterialPageRoute(builder: (_) => const SplashScreen());
+      case Routes.onBoarding:
         return MaterialPageRoute(builder: (_) => const OnBoardingScreen());
       case Routes.login:
         return MaterialPageRoute(builder: (_) => const LoginScreen());
       case Routes.signUp:
         return MaterialPageRoute(builder: (_) => const SignUpScreen());
-      case Routes.resetPassword:
+      case Routes.home:
+        return MaterialPageRoute(builder: (_) => const HomeScreen());
       case Routes.resetPassword:
         return MaterialPageRoute(builder: (_) => const ResetPasswordScreen());
       case Routes.sendCode:
