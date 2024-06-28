@@ -6,7 +6,8 @@ import 'package:dyslexia_app/feature/auth/presentation/screens/reset_password_sc
 import 'package:dyslexia_app/feature/auth/presentation/screens/send_code_screen.dart';
 import 'package:dyslexia_app/feature/auth/presentation/screens/sign_up_screen.dart';
 import 'package:dyslexia_app/feature/auth/presentation/screens/splash_screen.dart';
-import 'package:dyslexia_app/feature/home/presentation/screens/home_screen.dart';
+import 'package:dyslexia_app/feature/question/presentation/screens/home_screen.dart';
+import 'package:dyslexia_app/feature/question/presentation/screens/question_screen.dart';
 import 'package:flutter/material.dart';
 
 
@@ -20,6 +21,7 @@ class Routes {
   static const String resetPassword = '/resetPassword';
   static const String newPassword = '/newPassword';
   static const String onBoarding = '/onBoarding';
+  static const String questionScreen = '/questionScreen';
 
 }
 
@@ -42,6 +44,8 @@ class AppRoutes {
         return MaterialPageRoute(builder: (_) => const SendCodeScreen());
       case Routes.newPassword:
         return MaterialPageRoute(builder: (_) => const NewPasswordScreen());
+      case Routes.questionScreen:
+        return MaterialPageRoute(builder: (_) => const QuestionScreen());
 
       default:
         return MaterialPageRoute(
