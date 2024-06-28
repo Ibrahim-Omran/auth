@@ -146,21 +146,23 @@ class QuestionScreen extends StatelessWidget {
                             onPressed: () {
 
                               if(index+1 >= cubit.questions.length.toInt()){
-                                navigate(
+                                navigateReplacement(
                                   context: context,
                                   route: Routes.showResultScreen,
                                 );
+
                               }else{
+
                                 cubit.chooseOne = false;
                                 cubit.chooseTwo = false;
                                 cubit.chooseThree = false;
                                 cubit.Score();
-
                                 controller.nextPage(
                                   duration: const Duration(milliseconds: 1000),
                                   curve: Curves.fastLinearToSlowEaseIn,
                                 );
                               }
+
                             },
                             text: 'Next',
                           ),
