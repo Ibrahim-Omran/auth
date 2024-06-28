@@ -5,15 +5,14 @@ import '../utils/app_colors.dart';
 
 class BackWidget extends StatelessWidget {
   const BackWidget({
-    super.key,
+    super.key, this.onTap,
   });
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
-        Navigator.pop(context);
-      },
+      onTap: onTap,
       child: Container(
         padding: const EdgeInsets.all(3),
         decoration: BoxDecoration(

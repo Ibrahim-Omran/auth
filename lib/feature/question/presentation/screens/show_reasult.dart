@@ -1,4 +1,6 @@
+import 'package:dyslexia_app/core/routes/app_routes.dart';
 import 'package:dyslexia_app/core/utils/app_colors.dart';
+import 'package:dyslexia_app/core/utils/commons.dart';
 import 'package:dyslexia_app/core/widget/back_widget.dart';
 import 'package:dyslexia_app/feature/question/presentation/cubits/question_cubit.dart';
 import 'package:dyslexia_app/feature/question/presentation/cubits/question_state.dart';
@@ -19,11 +21,16 @@ class ShowResultScreen extends StatelessWidget {
             backgroundColor: AppColors.primary,
             body: Column(
               children: [
-                const Padding(
-                  padding: EdgeInsets.all(8.0),
+                 Padding(
+                  padding: const EdgeInsets.all(8.0),
                   child: Align(
                     alignment: Alignment.topLeft,
-                      child: BackWidget(),
+                      child: BackWidget(
+                        onTap: (){
+                          cubit.score = 0;
+                          navigateReplacement(context: context, route: Routes.home);
+                        },
+                      ),
                   ),
                 ),
                 SizedBox(

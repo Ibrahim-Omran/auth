@@ -30,11 +30,15 @@ class HomeScreen extends StatelessWidget {
       
           child: Column(
             children: [
-              const Padding(
-                padding: EdgeInsets.all(8.0),
+               Padding(
+                padding: const EdgeInsets.all(8.0),
                 child: Align(
                   alignment: Alignment.topLeft,
-                  child: BackWidget(),
+                  child: BackWidget(
+                    onTap: (){
+                      Navigator.pop(context);
+                    },
+                  ),
                 ),
               ),
 
